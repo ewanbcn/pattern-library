@@ -273,6 +273,34 @@
     </nav>
 </div>
 
+<div id="card">
+
+    <div class="ds_card">
+        <div class="ds_card__content">
+            <p>Card with no link</p>
+        </div>
+    </div>
+
+    <div class="ds_card  ds_card--hover">
+        <div class="ds_card__content">
+            <h2 class="ds_card__title">
+                <a class="ds_card__link--cover" href="#">About the Design System</a>
+            </h2>
+            <p>The Digital Scotland Design System provides static web assets for websites and web applications for the Scottish Government and other Scottish public sector bodies.</p>
+        </div>
+    </div>
+
+    <div class="ds_card  ds_card--hover">
+        <div class="ds_card__content">
+            <h2 class="ds_card__title">
+                <a class="ds_card__link--cover" data-unit="with-attribute" data-navigation="card-foo" href="#">About the Design System</a>
+            </h2>
+            <p>The Digital Scotland Design System provides static web assets for websites and web applications for the Scottish Government and other Scottish public sector bodies.</p>
+        </div>
+    </div>
+
+</div>
+
 <div id="category-list">
     <nav aria-label="Category navigation">
         <ol class="ds_category-list">
@@ -426,6 +454,19 @@
     </nav>
 </div>
 
+<div id="details">
+    <details class="ds_details">
+        <summary class="ds_details__summary">
+            System requirements
+        </summary>
+        <div class="ds_details__text">
+            Requires a computer running an operating system. The computer must have some
+            memory and ideally some kind of long-term storage. An input device as well
+            as some form of output device is recommended.
+        </div>
+    </details>
+</div>
+
 <div id="error-messages">
     <div data-unit="default" class="ds_question  ds_question--error" id="error-id-three">
         <label class="ds_label" for="more-detail">Please provide more detail</label>
@@ -519,6 +560,17 @@
             </li>
         </ul>
     </div>
+</div>
+
+<div id="external-links">
+    <a id="internal-relative" href="/bins"></a>
+    <a id="internal-absolute" href="http://localhost:9876/bins"></a>
+    <a id="internal-hash-same-page" href="#bins"></a>
+    <a id="internal-hash-new-page" href="/bins#bins"></a>
+    <a id="external" href="http://www.gov.scot"></a>
+    <a id="external-subdomain" href="http://campaign.mygov.scot"></a>
+    <a id="mailto" href="mailto:bins@bins.com"></a>
+    <a id="tel" href="tel:01234567890"></a>
 </div>
 
 <div id="hide-this-page">
@@ -1013,6 +1065,38 @@
             <li class="ds_skip-links__item"><a data-unit="with-attribute" data-navigation="skip-link-foo" class="ds_skip-links__link" href="#other-content">Skip to other content</a></li>
         </ul>
     </div>
+</div>
+
+<div id="step-navigation">
+    <aside class="ds_callout  ds_step-navigation-top" aria-labelledby="step-navigation-topbar">
+        <h3 id="step-navigation-topbar">Part of <span class="visually-hidden">two step by step guides</span></h3>
+        <ul class="ds_no-bullets">
+            <li><a href="#"><b>Adopting from abroad: step by step</b></a></li>
+            <li><a href="#"><b>Something else: Step by step</b></a></li>
+        </ul>
+    </aside>
+
+    <nav class="ds_step-navigation  ds_step-navigation--small" aria-labelledby="step-navigation-sidebar" data-module="ds-step-navigation">
+        <h2 id="step-navigation-sidebar" class="ds_step-navigation__title">
+            Part of
+            <a class="ds_step-navigation__title-link" href="#">Adopting from abroad: Step by step</a>
+        </h2>
+
+        <div class="ds_accordion ds_accordion--small js-initialised" data-module="ds-accordion">
+            <button data-accordion="accordion-open-all" type="button" class="ds_link  ds_accordion__open-all  js-open-all" data-button="button-open-all-sections">Open all <span class="visually-hidden">sections</span></button>
+
+            <div class="ds_accordion-item">
+                <span class="ds_step-navigation__count">
+                    <span class="visually-hidden">Step </span>1
+                </span>
+                <input type="checkbox" class="ds_accordion-item__control fully-hidden" id="step-1" aria-labelledby="step-1-heading">
+
+                <button class="ds_accordion-item__header-button js-accordion-button" id="step-1-heading" type="button" aria-controls="accordion-item-92352" aria-expanded="false" data-accordion="accordion-open-1" data-button="button-check-if-you-can-adopt-from-abroad">Check if you can adopt from abroad<span class="ds_accordion-item__indicator"></span></button><div class="ds_accordion-item__body" id="accordion-item-92352">
+                    <a href="">Check if you’re eligible to adopt from abroad</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 </div>
 
 <div id="tab" class="ds_tabs" data-module="ds-tabs">

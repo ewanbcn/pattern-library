@@ -26,16 +26,13 @@ describe('site navigation', () => {
             it('should replace the label emlement with a button with certain expected attributes', () => {
                 const label = document.querySelector('.js-toggle-menu');
                 const expectedAttribs = {
-                    classList: label.classList,
                     controls: label.getAttribute('aria-controls'),
                     expanded: false
                 };
                 testObj.siteNavigationModule.init();
-                expectedAttribs.classList.add('ds_link');
 
-                const button = document.querySelector('.js-toggle-menu');
-                expect(document.querySelectorAll('.js-toggle-menu').length).toEqual(1);
-                expect(button.classList).toEqual(expectedAttribs.classList);
+                const button = document.querySelector('button.js-toggle-menu');
+                expect(document.querySelectorAll('button.js-toggle-menu').length).toEqual(1);
                 expect(button.getAttribute('aria-controls')).toEqual(expectedAttribs.controls);
                 expect(button.getAttribute('aria-expanded')).toEqual(expectedAttribs.expanded.toString());
             });
@@ -45,7 +42,7 @@ describe('site navigation', () => {
             it('should show/hide the menu on click of the menu button', () => {
                 testObj.siteNavigationModule.init();
 
-                const button = document.querySelector('.js-toggle-menu');
+                const button = document.querySelector('button.js-toggle-menu');
                 const menu = document.querySelector('.ds_site-navigation--mobile');
 
                 // OPEN

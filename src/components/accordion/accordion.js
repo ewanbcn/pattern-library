@@ -1,4 +1,5 @@
 /* global document, window */
+import elementIdModifier from '../../base/tools/id-modifier/id-modifier';
 
 'use strict';
 
@@ -25,7 +26,18 @@ class Accordion {
         const itemHeader = item.querySelector('.ds_accordion-item__header');
         const itemTitle = itemHeader.querySelector('.ds_accordion-item__title');
         const itemBody = item.querySelector('.ds_accordion-item__body');
-        const idString = parseInt(Math.random() * 1000000, 10);
+
+        // check for hash to open an accordion with
+        let accordionHasLocationHashInIt = false;
+        if (window.location.hash) {
+            try {
+                item.querySelector(window.location.hash);
+                accordionHasLocationHashInIt = true;
+                itemControl.checked = true;
+            } catch {
+                // hash is not a valid selector
+            }
+        }
 
         const startsOpen = itemControl.checked;
 
@@ -48,8 +60,7 @@ class Accordion {
         itemHeader.parentNode.removeChild(itemHeader);
 
         item.insertBefore(itemButton, itemBody);
-
-        itemBody.id = itemBody.id || `accordion-item-${idString}`;
+        itemBody.id = itemBody.id || `accordion-item-${elementIdModifier()}`;
         itemButton.setAttribute('aria-controls', itemBody.id);
 
         if (startsOpen) {
@@ -57,6 +68,9 @@ class Accordion {
             itemBody.style.maxHeight = itemBody.scrollHeight + 21 + 28 + 'px';
             if (this.openAllButton) {
                 this.setOpenAllButton(this.checkAllOpen());
+            }
+            if (accordionHasLocationHashInIt) {
+                item.scrollIntoView();
             }
         }
 

@@ -5,16 +5,21 @@
 // modifiable vars
 $site-logo__height: 32px !default;
 $site-logo__height--medium: 40px !default;
-$branding__separator-colour: $ds_colour__border--highlight !default;
+$site-branding-padding: 12px;
+$site-branding-title-spacing: 24px;
+$site-branding-title-spacing--medium: 48px;
 
 
 
 
 .ds_site-branding {
-    padding: 12px 0;
+    overflow: hidden;
+    padding: $site-branding-padding 0;
+    position: relative;
 
     &__logo {
         height: $site-logo__height;
+        margin-right: px-to-rem($site-branding-title-spacing);
     }
 
     &__logo-image {
@@ -34,30 +39,22 @@ $branding__separator-colour: $ds_colour__border--highlight !default;
 
     &__title {
         font-weight: $light;
-        line-height: $site-logo__height;
+        line-height: px-to-rem(24px);
 
-        &:not(:first-child){
-            margin-left: 24px;
+        &::before {
+            background: $ds_colour__brand;
+            bottom: $site-branding-padding;
+            content: '';
+            position: absolute;
+            margin-left: px-to-rem($site-branding-title-spacing * -0.5);
+            top: $site-branding-padding;
+            width: 1px;
         }
     }
 
     &__logo,
     &__title {
         float: left;
-    }
-
-    &__logo {
-        &:not(:last-child)::before {
-            background: $branding__separator-colour;
-            bottom: 0;
-            content: '';
-            position: absolute;
-            right: -12px;
-            top: 0;
-            width: 1px;
-
-            pointer-events: none;
-        }
     }
 }
 
@@ -69,24 +66,18 @@ $branding__separator-colour: $ds_colour__border--highlight !default;
 
         &__logo {
             height: $site-logo__height--medium;
-
-            &:not(:last-child)::before {
-                right: -24px;
-            }
+            margin-right: px-to-rem($site-branding-title-spacing--medium);
         }
 
         &__logo-image {
             height: $site-logo__height--medium;
         }
 
-        /*
-         * [1] magic number: maximum we can accommodate in the branding content area for two-line titles
-         */
         &__title {
             line-height: $site-logo__height--medium;
 
-            &:not(:first-child){
-                margin-left: 48px;
+            &::before {
+                margin-left: px-to-rem($site-branding-title-spacing--medium * -0.5);
             }
         }
     }
@@ -94,12 +85,10 @@ $branding__separator-colour: $ds_colour__border--highlight !default;
 
 @supports (display: flex) {
     .ds_site-branding {
-        display: flex;
         align-items: center;
-
-        &__title {
-            line-height: 1em;
-        }
+        display: flex;
+        flex-flow: wrap;
+        gap: px-to-rem(16px) 0;
 
         &__logo,
         &__title {
@@ -111,16 +100,17 @@ $branding__separator-colour: $ds_colour__border--highlight !default;
 
 
 
-
 // when branding is a child of a reversed-variant site header
-.ds_reversed .ds_site-branding {
-    color: $ds_colour__white;
-    
-    .ds_site-branding__logo {
+.ds_reversed {
+    .ds_site-branding {
         color: $ds_colour__white;
 
-        &:not(:last-child)::before {
-            background-color: $ds_colour__white;
+        &__logo {
+            color: $ds_colour__white;
+
+            &:not(:last-child)::before {
+                background-color: $ds_colour__white;
+            }
         }
     }
 }

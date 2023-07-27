@@ -140,7 +140,7 @@ const tracking = {
 
                 let storedValue = inputElement.value;
 
-                inputElement.addEventListener('keydown', (event) => {
+                inputElement.addEventListener('keyup', (event) => {
                     if (event.key === 'Enter' && inputElement.dataset.autocompletetext) {
                         autocompleteDataLayerPush(storedValue, inputElement);
                     }
@@ -179,6 +179,15 @@ const tracking = {
             buttons.forEach(button => {
                 if (!button.getAttribute('data-button')) {
                     button.setAttribute('data-button', `button-${slugify(button.innerText)}`);
+                }
+            });
+        },
+
+        cards: function (scope = document) {
+            const linkedCards = tracking.gatherElements('ds_card__link--cover', scope);
+            linkedCards.forEach((link, index) => {
+                if (!link.getAttribute('data-navigation')) {
+                    link.setAttribute('data-navigation', `card-${index + 1}`);
                 }
             });
         },
@@ -256,6 +265,19 @@ const tracking = {
             });
         },
 
+        details: function (scope = document) {
+            const detailsElements = tracking.gatherElements('ds_details', scope);
+            detailsElements.forEach(detailsElement => {
+                const summary = detailsElement.querySelector('summary');
+
+                detailsElement.setAttribute('data-accordion', `detail-${detailsElement.open ? 'close' : 'open'}`);
+
+                summary.addEventListener('click', () => {
+                    detailsElement.setAttribute('data-accordion', `detail-${detailsElement.open ? 'open' : 'close'}`);
+                });
+            });
+        },
+
         errorMessages: function (scope = document) {
             const errorMessages = tracking.gatherElements('ds_question__error-message', scope);
             errorMessages.forEach((errorMessage, index) => {
@@ -294,6 +316,7 @@ const tracking = {
         },
 
         errorSummaries: function (scope = document) {
+
             const errorSummaries = tracking.gatherElements('ds_error-summary', scope);
             errorSummaries.forEach(errorSummary => {
                 const errorSummaryLinks = [].slice.call(errorSummary.querySelectorAll('.ds_error-summary__list a'));
@@ -302,6 +325,20 @@ const tracking = {
                         link.setAttribute('data-form', `error-${link.href.substring(link.href.lastIndexOf('#') + 1)}`);
                     }
                 });
+            });
+        },
+
+        externalLinks: function (scope = document) {
+            const links = [].slice.call(scope.querySelectorAll('a'));
+            links.filter(link => {
+                let hostAndPort = window.location.hostname;
+                if (window.location.port) {
+                    hostAndPort += ':' + window.location.port;
+                }
+                const regex = new RegExp('/' + hostAndPort + '/?|^tel:|^mailto:|^/');
+                return !regex.test(link.href);
+            }).forEach(link => {
+                link.setAttribute('data-navigation', 'link-external');
             });
         },
 
@@ -631,6 +668,24 @@ const tracking = {
                 if (!link.getAttribute('data-navigation')) {
                     link.setAttribute('data-navigation', `skip-link-${index + 1}`);
                 }
+            });
+        },
+
+        stepNavigation: function (scope = document) {
+            const stepNavigations = tracking.gatherElements('ds_step-navigation', scope);
+            stepNavigations.forEach(stepNavigation => {
+                const partOfLinks = [].slice.call(stepNavigation.querySelectorAll('.ds_step-navigation__title-link'));
+                partOfLinks.forEach(partOfLink => {
+                    partOfLink.setAttribute('data-navigation', 'partof-sidebar');
+                });
+            });
+
+            const stepNavigationTopBars = tracking.gatherElements('ds_step-navigation-top', scope);
+            stepNavigationTopBars.forEach(stepNavigationTopBar => {
+                const partOfLinks = [].slice.call(stepNavigationTopBar.querySelectorAll('a'));
+                partOfLinks.forEach(partOfLink => {
+                    partOfLink.setAttribute('data-navigation', 'partof-header');
+                });
             });
         },
 
