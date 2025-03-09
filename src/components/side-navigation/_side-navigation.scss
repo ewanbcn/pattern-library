@@ -14,18 +14,20 @@ $side-nav__outline-width: 2px;
     @include ds_block-margins;
     @include ds_small-size;
 
-    border: 1px solid $ds_colour__border--light;
+    border: 1px solid $ds_colour__border;
     position: relative;
 
+    /// [1] Allowance for 1px border on all sides of parent container
     &__expand {
         @include ds_blocklink;
 
-        background-color: $ds_colour__white;
+        background-color: $ds_colour__background--primary;
         color: $side-nav__expand-colour;
         cursor: pointer;
         font-weight: $bold;
+        line-height: inherit;
         margin: 0;
-        padding: 16px 40px 16px 16px;
+        padding: 15px 47px 15px 15px; /// [1]
         position: sticky;
         text-align: left;
         text-decoration: none;
@@ -47,16 +49,16 @@ $side-nav__outline-width: 2px;
         }
 
         &--shadow:focus {
-            box-shadow: 0 3px #333333, 0px 8px 5px rgba(0,0,0,0.15);
+            box-shadow: 0 3px $ds_colour__link--focus__shadow, 0px 8px 5px rgba(0,0,0,0.15);
         }
     }
 
     &__expand-indicator {
-        @include ds_chevron(down, 0.75em);
+        @include ds_chevron(down, 0.75rem);
         border-width: 0px 0px 3px 3px;
         position: absolute;
-        right: 24px;
-        top: 20px;
+        right: 23px;
+        top: 17px;
         transition: transform 0.2s, top 0.2s;
         pointer-events: none;
     }
@@ -69,7 +71,7 @@ $side-nav__outline-width: 2px;
     }
 
     #show-side-navigation:checked ~ .ds_side-navigation__expand .ds_side-navigation__expand-indicator {
-        top: 24px;
+        top: 23px;
         transform: rotate(-225deg);
     }
 
@@ -102,12 +104,12 @@ $side-nav__outline-width: 2px;
         }
     }
 
-    /// [1] vertical padding offsets the text slightly for visual balance
+    /// [2] vertical padding offsets the text slightly for visual balance
     &__link {
         @include ds_blocklink;
 
         margin-bottom: 2px;
-        padding: 12px 40px 10px 16px; /// [1]
+        padding: 12px 40px 10px 16px; /// [2]
         position: relative;
         text-decoration: none;
 
@@ -120,13 +122,12 @@ $side-nav__outline-width: 2px;
             position: relative;
 
             &::before {
-                background: $ds_colour__border--highlight;
+                border-left: $side-nav__outline-width solid $ds_colour__border--highlight;
                 bottom: 0;
                 content: '';
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: $side-nav__outline-width;
             }
         }
 
@@ -158,35 +159,45 @@ $side-nav__outline-width: 2px;
         padding-left: 24px;
 
         &::before {
-            background: $ds_colour__grey--light;
+            border-left: 4px solid $ds_colour__border;
             bottom: 12px;
             content: '';
             left: 12px;
+            opacity: 0.26;
             position: absolute;
             right: 100%;
-            width: 4px;
             top: 12px;
         }
 
         &:hover,
         &.ds_current {
             &::before {
-                background: $ds_colour__border--highlight;
+                border-color: $ds_colour__border--highlight;
+                opacity: 1;
             }
         }
 
         &:focus {
             &::before {
-                background: $ds_colour__link--focus;
+                border-color: $ds_colour__link--focus;
+                opacity: 1;
             }
         }
     }
 }
 
 @include ds_media-query(medium-down) {
+
+    .js-initialised.ds_side-navigation .ds_side-navigation__list {
+        display: block;
+    }
+
+    /// [3] Allowance for 1px border on left and right
+    ///
     .js-initialised.ds_side-navigation > .ds_side-navigation__list {
-        margin: 0 16px;
-        max-height: 0;
+
+        margin: 0 15px; ///[3]
+        max-height: var(--ds-side-nav-max-height);
         overflow: hidden;
 
         @media (prefers-reduced-motion: no-preference) {

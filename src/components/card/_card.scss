@@ -2,21 +2,26 @@
     CARD
 \*------------------------------------*/
 
+$card-grey-background-color: $ds_colour__background--secondary !default;
+
 .ds_card {
     @include ds_box-shadow;
     @include ds_small-size;
-    background-color: $ds_colour__white;
+    @include ds_high-contrast-outline;
+    background-color: $ds_colour__background--primary;
     display: grid;
     grid-template-rows: auto 1fr;
     position: relative;
 
     &--grey {
-        background-color: $ds_colour__grey--lighter;
+        background-color: $card-grey-background-color;
         color: $ds_colour__text;
 
         &:focus-within {
             color: $ds_colour__link--focus;
         }
+
+        @include checkAndFixDescendantLinkColour($ds_colour__link, $card-grey-background-color, 'grey card');
     }
 
     &--hover,
@@ -80,10 +85,6 @@
         @include ds_h3-style;
         @include ds_responsive-margin(1, bottom);
         margin-top: 0 !important;
-    }
-
-    &__link--cover:focus {
-        @include ds_high-contrast-focus;
     }
 
     &__link--cover:after {

@@ -361,6 +361,20 @@
     </nav>
 </div>
 
+<div id="confirmation-message">
+    <div class="ds_confirmation-message">
+        <svg class="ds_confirmation-message__icon ds_icon ds_icon--24" aria-hidden="true" role="img">
+            <use href="/assets/images/icons/icons.stack.svg#check_circle"></use>
+        </svg>
+        <h3 class="ds_confirmation-message__title">
+            Landlord added successfully
+        </h3>
+        <div class="ds_confirmation-message__body">
+            <p>You have added the landlord <strong>John Doe</strong> to the application. <a href="#">a link</a></p>
+        </div>
+    </div>
+</div>
+
 <div id="contact-details">
     <div class="ds_contact-details">
 
@@ -593,6 +607,37 @@
     </div>
 </div>
 
+<div id="metadata">
+    <div>
+        <div class="ds_metadata__item" data-unit="basic">
+            <dt class="ds_metadata__key">
+                foo
+            </dt>
+            <dd class="ds_metadata__value">
+                <a data-unit="link-1" href="#">bar</a>
+                <a data-unit="link-2" href="#">baz</a>
+            </dd>
+        </div>
+
+        <div class="ds_metadata__item" data-unit="no-key">
+            <dd class="ds_metadata__value">
+                <a data-unit="link-1" href="#">bar</a>
+                <a data-unit="link-2" href="#">baz</a>
+            </dd>
+        </div>
+
+        <div class="ds_metadata__item" data-unit="with-attribute">
+            <dt class="ds_metadata__key">
+                foo
+            </dt>
+            <dd class="ds_metadata__value">
+                <a data-unit="link-1" data-navigation="custom-attribute-1" href="#">bar</a>
+                <a data-unit="link-2" data-navigation="custom-attribute-2" href="#">baz</a>
+            </dd>
+        </div>
+    </div>
+</div>
+
 <div id="notifications">
     <div data-unit="with-id" class="ds_notification  ds_reversed" id="mybanner" data-module="ds-notification">
         <div class="ds_wrapper">
@@ -679,6 +724,24 @@
             </p>
         </div>
     </div>
+</div>
+
+<div id="search-facets">
+    <dl class="ds_facets__list">
+        <div class="ds_facet-group">
+            <dt class="ds_facet__group-title">
+                Topic:
+            </dt>
+            <dd class="ds_facet-wrapper">
+                <span class="ds_facet">
+                    Arts, culture and sport
+                    <a data-unit="facet" href="#" role="button" aria-label="Remove 'Arts, culture and sport' filter" class="ds_facet__button  js-remove-facet" data-slug="arts-culture-and-sport">
+                        <svg class="ds_facet__button-icon" aria-hidden="true" role="img" focusable="false"><use href="/site/webfiles/1716194348774/assets/images/icons/icons.stack.svg#cancel"></use></svg>
+                    </a>
+                </span>
+            </dd>
+        </div>
+    </dl>
 </div>
 
 <div id="search-results-multi">
@@ -1082,7 +1145,7 @@
             <a class="ds_step-navigation__title-link" href="#">Adopting from abroad: Step by step</a>
         </h2>
 
-        <div class="ds_accordion ds_accordion--small js-initialised" data-module="ds-accordion">
+        <div class="ds_accordion ds_accordion--small" data-module="ds-accordion">
             <button data-accordion="accordion-open-all" type="button" class="ds_link  ds_accordion__open-all  js-open-all" data-button="button-open-all-sections">Open all <span class="visually-hidden">sections</span></button>
 
             <div class="ds_accordion-item">
@@ -1091,12 +1154,99 @@
                 </span>
                 <input type="checkbox" class="ds_accordion-item__control fully-hidden" id="step-1" aria-labelledby="step-1-heading">
 
-                <button class="ds_accordion-item__header-button js-accordion-button" id="step-1-heading" type="button" aria-controls="accordion-item-92352" aria-expanded="false" data-accordion="accordion-open-1" data-button="button-check-if-you-can-adopt-from-abroad">Check if you can adopt from abroad<span class="ds_accordion-item__indicator"></span></button><div class="ds_accordion-item__body" id="accordion-item-92352">
+                <div class="ds_accordion-item__header">
+                    <h3 id="panel-1-heading" class="ds_accordion-item__title">
+                        Check if you can adopt from abroad <span class="ds_accordion-item__indicator"></span>
+                    </h3>
+                </div>
+                <div class="ds_accordion-item__body">
                     <a href="">Check if you’re eligible to adopt from abroad</a>
                 </div>
             </div>
         </div>
     </nav>
+</div>
+
+<div id="summary-card">
+    <div class="ds_summary-card">
+        <div class="ds_summary-card__header">
+            <h3 class="ds_summary-card__header-title" id="card-1-title">Summary card title</h3>
+            <ul class="ds_summary-card__actions-list">
+                <li class="ds_summary-card__actions-list-item">
+                    <a href="#" aria-describedby="card-1-title">Change</a>
+                </li>
+                <li class="ds_summary-card__actions-list-item">
+                    <button type="button" class="ds_link" aria-describedby="card-1-title" data-button="foo">Delete</button>
+                </li>
+            </ul>
+        </div>
+        <div class="ds_summary-card__content">
+            <ol class="ds_summary-list">
+                <li class="ds_summary-list__item">
+                    <span class="ds_summary-list__key" id="item-1-key">Have you had the grant 3 times or more since 1 May 2022?</span>
+                    <span class="ds_summary-list__value">
+                        <q class="ds_summary-list__answer">No</q>
+                    </span>
+                    <div class="ds_summary-list__actions">
+                        <a href="#" aria-describedby="item-1-key">
+                            Change
+                        </a>
+                    </div>
+                </li>
+                <li class="ds_summary-list__item">
+                    <span class="ds_summary-list__key" id="item-2-key">Which council area do you live in?</span>
+                    <span class="ds_summary-list__value">
+                        <q class="ds_summary-list__answer">City of Edinburgh</q>
+                    </span>
+                    <div class="ds_summary-list__actions">
+                        <ul class="ds_summary-list__actions-list">
+                            <li class="ds_summary-list__actions-list-item">
+                                <a href="#" aria-describedby="item-2-key">
+                                    Change
+                                </a>
+                            </li>
+                            <li class="ds_summary-list__actions-list-item">
+                                <a href="#" aria-describedby="item-2-key">
+                                    View
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="ds_summary-list__item">
+                    <span class="ds_summary-list__key" id="item-3-key">Do you work?</span>
+                    <span class="ds_summary-list__value">
+                        <q class="ds_summary-list__answer">Yes</q>
+                    </span>
+                    <div class="ds_summary-list__actions">
+                        <button type="button" class="ds_link" aria-describedby="item-3-key" data-button="foo">
+                            Change
+                        </button>
+                    </div>
+                </li>
+                <li class="ds_summary-list__item">
+                    <span class="ds_summary-list__key" id="item-4-key">Will you lose earnings because you need to self-isolate?</span>
+                    <span class="ds_summary-list__value">
+                        <q class="ds_summary-list__answer">Yes</q>
+                    </span>
+                    <div class="ds_summary-list__actions">
+                        <ul class="ds_summary-list__actions-list">
+                            <li class="ds_summary-list__actions-list-item">
+                                <button type="button" class="ds_link" aria-describedby="item-4-key" data-button="foo">
+                                    Change
+                                </button>
+                            </li>
+                            <li class="ds_summary-list__actions-list-item">
+                                <button type="button" class="ds_link" aria-describedby="item-4-key" data-button="foo">
+                                    Remove
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>    
+        </div>
+    </div>
 </div>
 
 <div id="tab" class="ds_tabs" data-module="ds-tabs">
@@ -1155,26 +1305,37 @@
     </div>
 </div>
 
-<ol class="ds_task-list-group  ds_task-list-group--ordered" id="tasklist">
-    <li class="ds_task-list-group__section">
-        <h2 class="ds_task-list-heading">Heading for tasks</h2>
-        <ul class="ds_task-list">
-            <li class="ds_task-list__task">
-                <div class="ds_task-list__task-details">
-                    <a class="ds_task-list__task-link" href="#" data-unit="without-attribute">This is a task <span class="visually-hidden">(Completed)</span></a>
-                </div>
-                <div class="ds_task-list__task-status  ds_task-list__task-status--complete" aria-hidden="true">Completed</div>
-            </li>
-            <li class="ds_task-list__task">
-                <div class="ds_task-list__task-details">
-                    <a class="ds_task-list__task-link" href="#" data-unit="with-attribute" data-navigation="task-link-foo">This is another task <span class="visually-hidden">(Completed)</span></a>
-                    <p class="ds_task-list__task-summary">This is some additional content around this specific task.</p>
-                </div>
-                <div class="ds_task-list__task-status  ds_task-list__task-status--complete" aria-hidden="true">Completed</div>
-            </li>
-        </ul>
-    </li>
-</ol>
+<div id="tasklist">
+    <h2 id="task-list-status" class="ds_task-list-status-heading">Application incomplete</h2>
+    <nav aria-labelledby="task-list-status" class="ds_task-list-status">
+        <p>You have completed 1 of 4 sections.</p>
+        <p><a href="#task2" class="js-task-list-skip-link" data-navigation="task-skip-link-foo">Skip to first incomplete section</a></p>
+    </nav>
+    <ol class="ds_task-list-group  ds_task-list-group--ordered">
+        <li class="ds_task-list-group__section">
+            <h2 class="ds_task-list-heading">Heading for tasks</h2>
+            <ul class="ds_task-list">
+                <li class="ds_task-list__task" id="task1">
+                    <div class="ds_task-list__task-details">
+                        <h3 class="ds_task-list__task-heading">
+                            <a class="ds_task-list__task-link" href="#" data-unit="without-attribute">This is a task <span class="visually-hidden">(Completed)</span></a>
+                        </h3>
+                    </div>
+                    <div class="ds_task-list__task-status  ds_task-list__task-status--complete" aria-hidden="true">Completed</div>
+                </li>
+                <li class="ds_task-list__task" id="task2">
+                    <div class="ds_task-list__task-details">
+                        <h3 class="ds_task-list__task-heading">
+                            <a class="ds_task-list__task-link" href="#" data-unit="with-attribute" data-navigation="task-link-foo">This is another task <span class="visually-hidden">(Completed)</span></a>
+                        </h3>
+                        <p class="ds_hint-text  ds_task-list__task-summary">This is some additional content around this specific task.</p>
+                    </div>
+                    <div class="ds_task-list__task-status  ds_task-list__task-status--complete" aria-hidden="true">Completed</div>
+                </li>
+            </ul>
+        </li>
+    </ol>
+</div>
 
 <div id="warning-text">
     <div class="ds_warning-text">
@@ -1187,4 +1348,21 @@
         <strong class="visually-hidden">Warning</strong>
         <div class="ds_warning-text__text"><a href="#">Call 999</a> if you or someone else is in immediate danger, or if the <a href="#">crime is in progress</a>.</div>
     </div>
+</div>
+
+<div id="links">
+    <p>Content without preceding header <a data-unit="link-1" href="#">link</a></p>
+    <div class="ds_layout__header">
+        <h1>Section 1</h1>
+    </div>
+    <p>Content in section 1 <a data-unit="link-2" href="#">link</a></p>
+    <div class="ds_layout__header">
+        <p>Section 2 (but not a header element)</p>
+    </div>
+    <p>Content in section 2 <a data-unit="link-3" href="#">link</a></p>
+    <h2>Section 3</h2>
+    <p>Content in section 3 <a data-unit="link-4" href="#">link</a></p>
+    <ul>
+        <li>Nested content in section 2 <a data-unit="link-5" href="#">link</a></li>
+    </ul>
 </div>

@@ -4,14 +4,8 @@
 */
 
 // modifiable vars
-$site-navigation__current-colour--reversed: $ds_colour__blue--light !default;
-$site-navigation__hover-bg--reversed: $ds_colour__link--hover !default;
-$site-navigation__mobile-menu-background: $ds_colour__grey--lighter !default;
-$site-navigation__mobile-menu-button-colour: $ds_colour__brand !default;
-
-// fixed vars
-$site-navigation__highlight-colour: $ds_colour__border--highlight;
-$site-navigation__mobile-menu-highlight-colour: $site-navigation__highlight-colour;
+$site-navigation__mobile-menu-background: $ds_colour__background--secondary !default;
+$site-navigation__highlight-colour: $ds_colour__border--highlight !default;
 
 // common to both mobile and desktop
 $site-navigation__link-padding: 16px;
@@ -56,13 +50,7 @@ $site-navigation__link-padding: 16px;
         margin: 0 -16px;
 
         &--mobile {
-            display: block;
-            max-height: 0;
             overflow: hidden;
-
-            @media (prefers-reduced-motion: no-preference) {
-                transition: max-height 0.2s;
-            }
         }
 
         &__list {
@@ -70,7 +58,7 @@ $site-navigation__link-padding: 16px;
         }
 
         &__item:not(:last-child) {
-            border-bottom: 1px solid #b3b3b3;
+            border-bottom: 1px solid $ds_colour__border;
         }
 
         &__link {
@@ -88,12 +76,8 @@ $site-navigation__link-padding: 16px;
 
     .ds_site-navigation__toggle:checked ~ .ds_site-navigation,
     .ds_site-navigation--open {
-        border-top: 1px solid $ds_colour__grey--light;
-        max-height: none;
-
-        @supports (color: var(--mobile-menu-height)) {
-            max-height: var(--mobile-menu-height, none);
-        }
+        border-top: 1px solid $ds_colour__border--faint;
+        display: block;
     }
 }
 
@@ -120,7 +104,6 @@ $site-navigation__link-padding: 16px;
 
             &::after {
                 bottom: 0;
-                height: 3px;
             }
 
             &.ds_current:not(:focus) {
@@ -128,6 +111,7 @@ $site-navigation__link-padding: 16px;
                 color: $ds_colour__text;
 
                 &:after {
+                    border-bottom: 3px solid transparent;
                     left: 0;
                     opacity: 1;
                     right: 0;
@@ -141,8 +125,6 @@ $site-navigation__link-padding: 16px;
                 outline: none;
                 padding-bottom: 5px;
 
-                @include ds_high-contrast-focus;
-
                 &::after {
                     content: none;
                 }
@@ -152,13 +134,5 @@ $site-navigation__link-padding: 16px;
                 background-color: $ds_colour__link--hover__background;
             }
         }
-    }
-}
-
-
-// when site navigation is a child of a reversed-variant site header
-.ds_reversed .ds_site-navigation {
-    @include ds_media-query(medium) {
-        color: $ds_colour__white;
     }
 }

@@ -179,7 +179,7 @@ describe('"autocomplete" component', () => {
                 for (let i = 0, il = testObj.autocompleteModule.suggestions.length; i < il; i++) {
                     testObj.autocompleteModule.inputElement.dispatchEvent(event);
                     expect(testObj.autocompleteModule.suggestions[i].active).toBeTruthy();
-                    expect(document.querySelector('.active').innerText).toEqual(testData[i].displayText);
+                    expect(document.querySelector('.active .js-suggestion-text').innerText).toEqual(testData[i].displayText);
                 }
             });
 
@@ -195,7 +195,7 @@ describe('"autocomplete" component', () => {
                 for (let i = testObj.autocompleteModule.suggestions.length - 1; i > -1; i--) {
                     testObj.autocompleteModule.inputElement.dispatchEvent(event);
                     expect(testObj.autocompleteModule.suggestions[i].active).toBeTruthy();
-                    expect(document.querySelector('.active').innerText).toEqual(testData[i].displayText);
+                    expect(document.querySelector('.active .js-suggestion-text').innerText).toEqual(testData[i].displayText);
                 }
             });
 
@@ -211,7 +211,7 @@ describe('"autocomplete" component', () => {
                 testObj.autocompleteModule.inputElement.dispatchEvent(event);
 
                 expect(testObj.autocompleteModule.suggestions[0].active).toBeTruthy();
-                expect(document.querySelector('.active').innerText).toEqual(testData[0].displayText);
+                expect(document.querySelector('.active .js-suggestion-text').innerText).toEqual(testData[0].displayText);
             });
 
             it('should loop to the beginning of the list when the UP key is pressed while on the first item in the list', () => {
@@ -226,7 +226,7 @@ describe('"autocomplete" component', () => {
                 testObj.autocompleteModule.inputElement.dispatchEvent(event);
 
                 expect(testObj.autocompleteModule.suggestions[testData.length - 1].active).toBeTruthy();
-                expect(document.querySelector('.active').innerText).toEqual(testData[testData.length - 1].displayText);
+                expect(document.querySelector('.active .js-suggestion-text').innerText).toEqual(testData[testData.length - 1].displayText);
             });
 
             it('should update the input element and close the suggestion list when the ENTER key is pressed', () => {
@@ -240,7 +240,7 @@ describe('"autocomplete" component', () => {
                 let event = new KeyboardEvent('keydown', { key: 'ArrowDown'});
                 testObj.autocompleteModule.inputElement.dispatchEvent(event);
 
-                const selectedItemText = document.querySelector('.active').innerText;
+                const selectedItemText = document.querySelector('.active .js-suggestion-text').innerText;
 
                 event = new KeyboardEvent('keydown', { key: 'Enter' });
                 testObj.autocompleteModule.inputElement.dispatchEvent(event);
@@ -314,7 +314,7 @@ describe('"autocomplete" component', () => {
             testObj.autocompleteModule.inputElement.dispatchEvent(event2);
 
             window.setTimeout(() => {
-                const firstResultHighlight = testObj.autocompleteModule.listBoxElement.querySelector('.ds_autocomplete__suggestion .ds_autocomplete__highlight');
+                const firstResultHighlight = testObj.autocompleteModule.listBoxElement.querySelector('.ds_autocomplete__suggestion mark');
                 expect(firstResultHighlight.innerText).toEqual(testObj.autocompleteModule.inputElement.value);
 
                 done();
@@ -331,7 +331,8 @@ describe('"autocomplete" component', () => {
                 expect(testObj.autocompleteModule.activeSuggestion).toBeUndefined();
                 expect(testObj.autocompleteModule.listBoxElement.innerHTML).toEqual('');
                 expect(testObj.autocompleteModule.inputElement.getAttribute('aria-activedescendant')).toBeNull();
-                expect(testObj.autocompleteModule.inputElement.getAttribute('aria-expanded')).toEqual('false');
+                expect(testObj.autocompleteModule.inputElement.classList.contains('js-has-suggestions')).toEqual(false);
+
 
                 done();
             }, 100);
@@ -358,7 +359,7 @@ describe('"autocomplete" component', () => {
 
             const elementToClick = testObj.autocompleteModule.listBoxElement.querySelector('.ds_autocomplete__suggestion:last-of-type');
 
-            const selectedItemText = elementToClick.innerText;
+            const selectedItemText = elementToClick.querySelector('.js-suggestion-text').innerText;
             elementToClick.dispatchEvent(event);
 
             expect(testObj.autocompleteModule.inputElement.value).toEqual(selectedItemText);
@@ -377,7 +378,7 @@ describe('"autocomplete" component', () => {
             expect(testObj.autocompleteModule.activeSuggestion).toBeUndefined();
             expect(testObj.autocompleteModule.listBoxElement.innerHTML).toEqual('');
             expect(testObj.autocompleteModule.inputElement.getAttribute('aria-activedescendant')).toBeNull();
-            expect(testObj.autocompleteModule.inputElement.getAttribute('aria-expanded')).toEqual('false');
+            expect(testObj.autocompleteModule.inputElement.classList.contains('js-has-suggestions')).toEqual(false);
         });
     });
 
@@ -428,18 +429,18 @@ describe('"autocomplete" component', () => {
             expect(testObj.autocompleteModule.inputElement.getAttribute('aria-activedescendant')).toBeNull();
         });
 
-        it('should set aria-expanded on the input element to match whether suggestions are shown or not', () => {
+        it('should set a class on the input element to flag whether suggestions are shown or not', () => {
             testObj.autocompleteModule.suggestions = testData;
             testObj.autocompleteModule.inputElement.value = 'foo';
             testObj.autocompleteModule.selectedSuggestion = -1;
             testObj.autocompleteModule.init();
 
-            expect(testObj.autocompleteModule.inputElement.getAttribute('aria-expanded')).toEqual('false');
+            expect(testObj.autocompleteModule.inputElement.classList.contains('js-has-suggestions')).toEqual(false);
 
             let focusEvent = new Event('focus');
             testObj.autocompleteModule.inputElement.dispatchEvent(focusEvent);
 
-            expect(testObj.autocompleteModule.inputElement.getAttribute('aria-expanded')).toEqual('true');
+            expect(testObj.autocompleteModule.inputElement.classList.contains('js-has-suggestions')).toEqual(true);
 
             let event = new KeyboardEvent('keydown', { key: 'ArrowDown'});
             testObj.autocompleteModule.inputElement.dispatchEvent(event);
@@ -447,7 +448,7 @@ describe('"autocomplete" component', () => {
             event = new KeyboardEvent('keydown', { key: 'Enter' });
             testObj.autocompleteModule.inputElement.dispatchEvent(event);
 
-            expect(testObj.autocompleteModule.inputElement.getAttribute('aria-expanded')).toEqual('false');
+            expect(testObj.autocompleteModule.inputElement.classList.contains('js-has-suggestions')).toEqual(false);
         });
     });
 

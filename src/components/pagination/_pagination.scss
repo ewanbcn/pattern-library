@@ -18,25 +18,38 @@
 
     &__item {
         display: inline-block;
-        margin-bottom: 4px; // override default margin on li
+        margin-bottom: 0.25rem; // override default margin on li
     }
 
     &__link {
         @include ds_blocklink;
-        line-height: 40px;
-        min-height: 40px;
-        min-width: 40px;
+        line-height: 2.5rem;
+        min-height: 2.5rem;
+        min-width: 2.5rem;
+        padding: 0 0.5rem;
         text-decoration: none;
 
         &.ds_current {
+            color: currentColor;
+            position: relative;
+
+            &::before {
+                border-bottom: 3px solid currentColor;
+                bottom: 0;
+                content: '';
+                left: 0;
+                position: absolute;
+                right: 0;
+            }
+        }
+
+        &.ds_current:not(:focus) {
             background-color: $ds_colour__link--current__background;
-            box-shadow: inset 0 -3px 0 0px currentColor;
-            pointer-events: none;
         }
 
         &--text:not(&--icon) {
-            padding-left: 24px;
-            padding-right: 24px;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
             width: auto;
         }
 
@@ -45,15 +58,30 @@
             pointer-events: none;
         }
 
+        &--ellipsis,
+        &--icon {
+            padding: 0;
+        }
+
+
+
+        .ds_icon {
+            height: 2em;
+            width: 2em;
+        }
+
         > * {
             pointer-events: none;
         }
     }
 }
 
+a.ds_pagination__link:not(.ds_current):not(:focus) {
+    text-decoration-line: underline;
+}
+
 @include ds_media-query(medium) {
     .ds_pagination {
-
         &__load-more + &__list {
             display: block;
         }
@@ -63,9 +91,22 @@
         }
 
         &__link--icon {
-            padding-left: 24px;
-            padding-right: 24px;
+            padding-left: 0px;
+            padding-right: 0px;
             width: auto;
+
+            .ds_pagination__link-label {
+                padding-left: 1rem;
+            }
+
+            .ds_icon + .ds_pagination__link-label {
+                padding-right: 1rem;
+                padding-left: 0;
+            }
+        }
+
+        .ds_icon {
+            margin: 0 0.25rem;
         }
     }
 }
@@ -89,7 +130,7 @@
         &__list {
             display: flex;
             flex-wrap: wrap;
-            gap: 2px;
+            gap: 0.25rem;
             justify-content: center;
         }
 

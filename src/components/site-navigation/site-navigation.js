@@ -8,8 +8,11 @@ class MobileMenu {
     }
 
     init() {
-        if (this.mobileMenu) {
-            this.setupMobileNavigation();
+        // detect support for CSS custom properties
+        if (window.CSS && CSS.supports('color', 'var(--primary)')) {
+            if (this.mobileMenu) {
+                this.setupMobileNavigation();
+            }
         }
     }
 
@@ -31,19 +34,28 @@ class MobileMenu {
 
             this.mobileMenu = document.getElementById(newMenuButton.getAttribute('aria-controls'));
 
-            document.documentElement.style.setProperty('--mobile-menu-height', this.mobileMenu.scrollHeight + 'px');
+            document.documentElement.style.setProperty('--ds-mobile-menu-height', this.mobileMenu.scrollHeight + 'px');
 
             if (this.mobileMenu.classList.contains('ds_site-navigation--open')) {
-                this.mobileMenu.classList.remove('ds_site-navigation--open');
-                newMenuButton.classList.remove('ds_site-header__control--active');
-                newMenuButton.setAttribute('aria-expanded', false);
+                this.closeMenu();
             } else {
-                this.mobileMenu.style.maxHeight = this.mobileMenu.scrollHeight;
-                this.mobileMenu.classList.add('ds_site-navigation--open');
-                newMenuButton.classList.add('ds_site-header__control--active');
-                newMenuButton.setAttribute('aria-expanded', true);
+                this.openMenu();
             }
         });
+
+        this.newMenuButton = newMenuButton;
+    }
+
+    openMenu() {
+        this.mobileMenu.classList.add('ds_site-navigation--open');
+        this.newMenuButton.classList.add('ds_site-header__control--active');
+        this.newMenuButton.setAttribute('aria-expanded', true);
+    }
+
+    closeMenu() {
+        this.mobileMenu.classList.remove('ds_site-navigation--open');
+        this.newMenuButton.classList.remove('ds_site-header__control--active');
+        this.newMenuButton.setAttribute('aria-expanded', false);
     }
 }
 

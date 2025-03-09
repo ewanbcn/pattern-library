@@ -1,7 +1,9 @@
 /*------------------------------------*\
     #STEP NAVIGATION
-    Step navigation is an enhancement the DS accordion
+    Step navigation is an enhancement to the DS accordion
 \*------------------------------------*/
+
+@use "sass:math";
 
 $step-count-margin: 40px;
 $step-count-margin--medium: 48px;
@@ -9,9 +11,19 @@ $step-count-size: 32px;
 $step-count-size--medium: 40px;
 $step-content-line-height: 24px;
 $step-content-line-height--medium: 32px;
+$step-vertical-line-width: 2px;
 
 .ds_step-navigation {
     counter-reset: section;
+
+    &__list {
+        list-style-type: none;
+        margin: 0;
+
+        li {
+            margin-bottom: 0;
+        }
+    }
 
     &__title {
         font-size: $h3-size;
@@ -20,29 +32,26 @@ $step-content-line-height--medium: 32px;
 
     &__title-link {
         display: block;
-        border-top: 1px solid $ds_colour__border--light;
-        border-bottom: 1px solid $ds_colour__border--light;
-        @include ds_responsive-margin(2, bottom);
+        @include ds_responsive-margin(3, bottom);
         @include ds_responsive-margin(1, top);
-        @include ds_responsive-padding(3, bottom);
-        @include ds_responsive-padding(3, top);
+        text-decoration: underline;
     }
 
     &__current-link::before {
         content: '';
         position: absolute;
-        left: #{($step-count-size / 2) - $step-count-margin};
+        left: #{math.div($step-count-size, 2) - $step-count-margin};
         right: 100%;
         height: 1px;
-        background: $ds_colour__border--dark;
-        margin-top: #{$step-content-line-height / 2};
+        background: $ds_colour__border--strong;
+        margin-top: math.div($step-content-line-height, 2);
     }
 
     &__count {
-        background-color: $ds_colour__white;
+        background-color: $ds_colour__background--primary;
         border: 1px solid currentColor;
         border-radius: 20px;
-        color: $ds_colour__border--dark;
+        color: $ds_colour__border--strong;
         content: counter(section);
         counter-increment: section;
         display: block;
@@ -53,7 +62,7 @@ $step-content-line-height--medium: 32px;
         line-height: #{$step-count-size - 2px};
         position: absolute;
         text-align: center;
-        top: px-to-rem(12px);
+        top: px-to-rem(4px);
         width: $step-count-size;
     }
 
@@ -61,24 +70,33 @@ $step-content-line-height--medium: 32px;
         background-color: $ds_colour__link--current__background;
         border: 2px solid $ds_colour__border--highlight;
         line-height: #{$step-count-size - 4px};
+
+        @include ds_media-query-high-contrast {
+            border-color: highlight;
+        }
     }
 
     .ds_accordion {
         margin-left: $step-count-margin;
     }
 
+    .ds_accordion__open-all {
+        margin-left: $step-count-margin * -1;
+        padding-left: 0;
+    }
+
     .ds_accordion-item {
         position: relative;
 
         &::before {
-            background: $ds_colour__border--dark;
+            border-left: 1px solid $ds_colour__border--strong;
             bottom: px-to-rem(-17px);
             content: '';
             display: block;
-            left: #{($step-count-size / 2) - $step-count-margin};
+            left: #{math.div($step-count-size, 2) - $step-count-margin - math.div($step-vertical-line-width, 2)};
             position: absolute;
-            top: px-to-rem(39px);
-            width: 1px;
+            top: px-to-rem(32px);
+            width: $step-vertical-line-width;
         }
 
         &:last-child::before {
@@ -86,12 +104,12 @@ $step-content-line-height--medium: 32px;
         }
 
         &:last-child::after {
-            background: $ds_colour__border--dark;
+            border-bottom: 1px solid $ds_colour__border--strong;
             bottom: -1px;
             content: '';
             display: block;
             height: 1px;
-            left: #{($step-count-size / 2) - $step-count-margin - 6px};
+            left: #{math.div($step-count-size, 2) - $step-count-margin - 6px};
             position: absolute;
             width: 13px;
         }
@@ -105,7 +123,7 @@ $step-content-line-height--medium: 32px;
     &__or &__count,
     &__and &__count {
         background-color: transparent;
-        border: none;
+        border-color: transparent;
     }
 }
 
@@ -116,6 +134,7 @@ $step-content-line-height--medium: 32px;
             height: $step-count-size--medium;
             left: #{$step-count-margin--medium * -1};
             line-height: #{$step-count-size--medium - 2px};
+            top: 0.75rem;
             width: $step-count-size--medium;
         }
 
@@ -124,22 +143,26 @@ $step-content-line-height--medium: 32px;
         }
 
         .ds_step-navigation__current-link::before {
-            left: #{($step-count-size--medium / 2) - $step-count-margin--medium};
-            margin-top: #{$step-content-line-height--medium / 2};
+            left: #{math.div($step-count-size--medium, 2) - $step-count-margin--medium};
+            margin-top: math.div($step-content-line-height--medium, 2);
         }
 
         .ds_accordion {
             margin-left: $step-count-margin--medium;
         }
 
+        .ds_accordion__open-all {
+            margin-left: $step-count-margin--medium * -1;
+        }
+
         .ds_accordion-item::before {
             bottom: px-to-rem(-17px);
-            left: #{($step-count-size--medium / 2) - $step-count-margin--medium};
+            left: #{math.div($step-count-size--medium, 2) - $step-count-margin--medium};
             top: px-to-rem(49px);
         }
 
         .ds_accordion-item:last-child::after {
-            left: #{($step-count-size--medium / 2) - $step-count-margin--medium - 6px};
+            left: #{math.div($step-count-size--medium, 2) - $step-count-margin--medium - 6px};
         }
     }
 }

@@ -2,33 +2,33 @@
     TABS
 \*------------------------------------*/
 
-$tab__background-colour: $ds_colour__grey--lighter !default;
-$tab__background-colour--current: $ds_colour__white !default;
+$tab__background-colour: $ds_colour__background--secondary !default;
+$tab__background-colour--current: $ds_colour__background--primary !default;
 $tab__link-colour: $ds_colour__text !default;
-$tab__link-colour--current: $ds_colour__text !default; 
+$tab__link-colour--current: $ds_colour__text !default;
 $tab__border-width: 2px !default;
 $tab__border-width--current: 3px !default;
-$tab__padding--vertical: 16px !default;
+$tab__padding--vertical: 12px !default;
 $tab__padding--horizontal: 16px !default;
 $tab__gap: 8px !default;
 $tab__toggle-colour: $ds_colour__link !default;
 $tab__toggle-colour--hover: $ds_colour__link--hover !default;
 
 .ds_tabs {
-    @include ds_responsive-margin(4, bottom);  
+    @include ds_responsive-margin(4, bottom);
 
     // Default title style matches contents list heading
     &__title {
         @include ds_h3-size;
         margin: 0;
         padding: 0;
-        @include ds_responsive-margin(1, bottom);  
+        @include ds_responsive-margin(1, bottom);
     }
 
     // Default list style matches contents list
     &__list {
         @include ds_small-size;
-        @include ds_responsive-margin(6, bottom);   
+        @include ds_responsive-margin(6, bottom);
         list-style: none;
         margin-left: 0;
         padding-left: 32px;
@@ -55,10 +55,10 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
 
     // Add space between stacked content blocks
     &__content + &__content {
-        @include ds_responsive-margin(3, top); 
+        @include ds_responsive-margin(3, top);
     }
 
-    
+
     &.ds_tabs--links {
 
         // Change to dropdown menu when tabs are links and javascript is initialised
@@ -67,15 +67,15 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
             // Dropdown menu
             @include ds_media-query(medium-down) {
 
-                @include ds_responsive-margin(4, bottom); 
+                @include ds_responsive-margin(4, bottom);
 
                 .ds_tabs {
 
                     &__toggle {
                         @include ds_blocklink;
-                
-                        background-color: $ds_colour__white;
-                        border: 2px solid $ds_colour__border--light;
+
+                        background-color: $ds_colour__background--primary;
+                        border: 2px solid $ds_colour__border--faint;
                         color: $tab__toggle-colour;
                         font-weight: $bold;
                         margin: 0;
@@ -87,7 +87,7 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                         &:hover:not(:focus) {
                             color: $tab__toggle-colour--hover;
                         }
-                
+
                         &::after {
                             @include ds_chevron(down, 0.75em);
                             border-width: 0px 0px 3px 3px;
@@ -144,10 +144,10 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                         }
 
                     }
-                
+
                     &__list {
                         @include ds_root-size;
-                        border: 2px solid $ds_colour__border--light;
+                        border: 2px solid $ds_colour__border--faint;
                         border-top: 0;
                         margin: 0;
                         padding: 8px 6px 6px 6px;
@@ -186,9 +186,9 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                     }
 
                     &__current {
-                        @include ds_responsive-margin(1, top); 
+                        @include ds_responsive-margin(1, top);
                     }
-                
+
                 }
             }
         }
@@ -225,12 +225,12 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                     margin: 0;
                     padding: 0;
                 }
-            
-                &__tab-link { 
+
+                &__tab-link {
                     @include ds_blocklink;// Not fully using typical blocklink styling so requires overrides
                     color: $tab__link-colour;
                     display: inline-block;
-                    padding: $tab__padding--vertical $tab__padding--horizontal calc(#{$tab__padding--vertical} - #{$tab__border-width});
+                    padding: $tab__padding--vertical $tab__padding--horizontal;
 
                     &:hover {
                         color: $ds_colour__link--hover;
@@ -240,7 +240,7 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                         color: $ds_colour__link--focus;
                     }
                 }
-            
+
                 &__tab {
 
                     &::before {
@@ -261,12 +261,13 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                             border-right: $tab__border-width solid $ds_colour__border;
                             border-bottom: 0;
                             color: $tab__link-colour--current;
-                            padding: calc(#{$tab__padding--vertical} - #{$tab__border-width--current}) calc(#{$tab__padding--horizontal} - #{$tab__border-width}) $tab__padding--vertical;
+                            padding: calc(#{$tab__padding--vertical} - #{$tab__border-width--current}) calc(#{$tab__padding--horizontal} - #{$tab__border-width}) calc(#{$tab__padding--vertical} + #{$tab__border-width});
                             text-decoration: none;
 
                             &:focus {
                                 border: 0;
-                                padding: $tab__padding--vertical $tab__padding--horizontal $tab__padding--vertical;
+                                color: $ds_colour__focus;
+                                padding: $tab__padding--vertical $tab__padding--horizontal calc(#{$tab__padding--vertical} + #{$tab__border-width});
                             }
                         }
                     }
@@ -275,10 +276,10 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                         margin-bottom: -$tab__border-width !important;
 
                         .ds_tabs__tab-link {
-                            padding: $tab__padding--vertical $tab__padding--horizontal;
+                            padding: $tab__padding--vertical $tab__padding--horizontal calc(#{$tab__padding--vertical} + #{$tab__border-width}) ;
                         }
-                    }            
-                    
+                    }
+
                 }
 
                 &__title {
@@ -288,11 +289,11 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
                 &__content {
                     border-top: $tab__border-width solid $ds_colour__border;
                     margin: 0;
-                    @include ds_responsive-padding(3, top);
-    
+                    @include ds_responsive-padding(3, top, $tuning: -$tab__border-width);
+
                     &--bordered {
                         border: $tab__border-width solid $ds_colour__border;
-                        @include ds_responsive-padding(3, top);
+                        @include ds_responsive-padding(3, top, $tuning: -$tab__border-width);
                         @include ds_responsive-padding(2, right, $tuning: -$tab__border-width);
                         @include ds_responsive-padding(3, bottom, $tuning: -$tab__border-width);
                         @include ds_responsive-padding(2, left, $tuning: -$tab__border-width);
@@ -316,7 +317,7 @@ $tab__toggle-colour--hover: $ds_colour__link--hover !default;
             .ds_tabs__tab {
 
                 &.ds_current {
-            
+
                     .ds_tabs__tab-link {
 
                         &:hover {

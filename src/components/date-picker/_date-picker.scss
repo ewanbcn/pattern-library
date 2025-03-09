@@ -2,10 +2,12 @@
     DATE PICKER
 \*------------------------------------*/
 
+$date-picker-focus-outline-width: 2px;
+$date-picker-focus-border-width: 3px;
 
 .ds_datepicker {
     position: relative;
-    margin-bottom: 24px;
+    @include ds_responsive-margin(3, bottom);
 
     .ds_input {
         margin-bottom: 0;
@@ -20,7 +22,7 @@
     &__dialog {
         @include ds_box-shadow;
 
-        background-color: $ds_colour__white;
+        background-color: $ds_colour__background--primary;
         clear: both;
         display: none;
         padding: 8px;
@@ -34,6 +36,10 @@
 
         &--open {
             display: block;
+
+            @supports (left: var(--ds-date-picker-left-offset)) {
+                left: var(--ds-date-picker-left-offset);
+            }
         }
 
         &__header {
@@ -63,7 +69,7 @@
         &__navbuttons {
             button {
                 background-color: transparent;
-                color: $ds_colour__text !important;
+                color: $ds_colour__text;
                 font-weight: $normal;
                 min-height: 40px;
                 margin: 0;
@@ -72,6 +78,10 @@
 
                 @include ds_blocklink;
                 display: inline-block;
+
+                &:hover {
+                    color: currentColor;
+                }
 
                 .ds_icon {
                     height: 32px;
@@ -85,7 +95,11 @@
         &__table {
 
             tbody:focus-within {
-                outline: 2px solid $ds_colour__link--focus__background;
+                outline: $date-picker-focus-outline-width solid $ds_colour__link--focus__background;
+
+                @include ds_media-query-high-contrast {
+                    outline-color: highlight;
+                }
             }
 
             td {
@@ -114,19 +128,34 @@
                 @include ds_small-size;
                 @include ds_blocklink;
 
-                &[disabled="true"] {
+                &:focus {
+                    transition-duration: 0s;
+                }
+
+                &[disabled="true"],
+                &[aria-disabled="true"] {
                     background-color: $ds_colour__link--disabled__background;
                     color: $ds_colour__link--disabled;
+                    pointer-events: none;
+
+                    &:focus {
+                        box-shadow:
+                            inset 0 #{$date-picker-focus-border-width * -1} $ds_colour__focus, // bottom shadow
+                            inset 0 $date-picker-focus-outline-width $ds_colour__focus--background, // top
+                            inset #{$date-picker-focus-outline-width * -1} 0 $ds_colour__focus--background, // right
+                            inset 0 #{($date-picker-focus-outline-width + $date-picker-focus-border-width) * -1} $ds_colour__focus--background, // bottom
+                            inset $date-picker-focus-outline-width 0 $ds_colour__focus--background; // left
+                    }
                 }
 
                 &.ds_datepicker__current {
                     $dp-current-outline-width: 2px;
-                    outline: $dp-current-outline-width solid $ds_colour__border--dark !important;
+                    outline: $dp-current-outline-width solid $ds_colour__border--strong !important;
                     outline-offset: #{$dp-current-outline-width * -1};
                 }
 
                 &.ds_datepicker__current[tabindex="-1"] {
-                    background: $ds_colour__grey--lighter;
+                    background: $ds_colour__link--current__background;
                     color: currentColor;
                 }
 
@@ -148,7 +177,16 @@
 
                 &.ds_selected:not(:focus) {
                     background-color: $ds_colour__text;
-                    color: $ds_colour__white;
+                    color: $ds_colour__text--reversed;
+                }
+
+                /*
+                 * helps with focus in windows high contrast
+                 */
+                &:focus {
+                    color: $ds_colour__focus;
+                    position: relative;
+                    z-index: 2; // [1]
                 }
             }
         }

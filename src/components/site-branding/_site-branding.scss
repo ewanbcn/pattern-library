@@ -34,7 +34,7 @@ $site-branding-title-spacing--medium: 48px;
         position: relative;
         text-decoration: none;
 
-        @include ds_fancy-underscore(2px);
+        @include ds_fancy-underscore;
     }
 
     &__title {
@@ -56,6 +56,7 @@ $site-branding-title-spacing--medium: 48px;
     &__title {
         float: left;
     }
+
 }
 
 @include ds_media-query (medium) {
@@ -74,7 +75,6 @@ $site-branding-title-spacing--medium: 48px;
         }
 
         &__title {
-            line-height: $site-logo__height--medium;
 
             &::before {
                 margin-left: px-to-rem($site-branding-title-spacing--medium * -0.5);
@@ -93,24 +93,6 @@ $site-branding-title-spacing--medium: 48px;
         &__logo,
         &__title {
             float: none;
-        }
-    }
-}
-
-
-
-
-// when branding is a child of a reversed-variant site header
-.ds_reversed {
-    .ds_site-branding {
-        color: $ds_colour__white;
-
-        &__logo {
-            color: $ds_colour__white;
-
-            &:not(:last-child)::before {
-                background-color: $ds_colour__white;
-            }
         }
     }
 }

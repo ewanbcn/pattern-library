@@ -6,25 +6,25 @@
 $site-header__border-colour--reversed: $ds_colour__brand--secondary !default;
 
 // fixed vars
-$site-header__border-colour: $ds_colour__border--light;
+$site-header__border-colour: $ds_colour__border--faint;
 $site-header__top-band-colour: $ds_colour__brand;
 $site-header__top-band-colour--secondary: $ds_colour__brand--secondary;
 
 .ds_site-header {
-    background-color: $ds_colour__white;
+    background-color: $ds_colour__background--primary;
     border-bottom: 1px solid $site-header__border-colour;
     margin-bottom: -1px;
     position: relative;
 
     &::before {
-        background: $site-header__top-band-colour;
-        display: block;
+        border-top: 4px solid $site-header__top-band-colour;
         content: '';
-        height: 4px;
+        display: block;
     }
 
     &--gradient::before {
-        background: linear-gradient(to $ds_brand-gradient-direction, $site-header__top-band-colour--secondary, $site-header__top-band-colour);
+        border-image-slice: 1;
+        border-image-source: linear-gradient(to right, $ds_colour__brand, $ds_colour__brand--secondary);
     }
 
     &__content {
@@ -55,6 +55,8 @@ $site-header__top-band-colour--secondary: $ds_colour__brand--secondary;
     }
 
     &__control {
+        @include ds_blocklink;
+
         color: inherit;
         cursor: pointer;
         font-size: 1rem;
@@ -62,10 +64,10 @@ $site-header__top-band-colour--secondary: $ds_colour__brand--secondary;
         min-height: 48px;
         margin: 0 -16px -1px 0;
         padding: 16px;
-        @include ds_blocklink;
+        text-decoration: none;
 
         &--active {
-            background-color: $ds_colour__grey--lighter;
+            background-color: $ds_colour__link--current__background;
             box-shadow: -1px -1px 0px rgba(0, 0, 0, 0.08);
 
             .ds_site-header__control-icon {
@@ -93,9 +95,11 @@ $site-header__top-band-colour--secondary: $ds_colour__brand--secondary;
         pointer-events: none;
     }
 
-    &__navigation {
-        border-top: 1px solid $ds_colour__border--light;
-        margin-top: -1px;
+    @include ds_media-query(medium) {
+        &__navigation {
+            border-top: 1px solid $ds_colour__border--faint;
+            margin-top: -1px;
+        }
     }
 }
 

@@ -3,7 +3,7 @@
 \*------------------------------------*/
 
 // modifiable vars
-$site-footer__background: $ds_colour__grey--light !default;
+$site-footer__background: $ds_colour__background--tertiary !default;
 
 
 
@@ -13,10 +13,10 @@ $site-footer__background: $ds_colour__grey--light !default;
     @include ds_small-size;
     background-color: $site-footer__background;
     border-top: 1px solid $ds_colour__border;
-    padding-top: 15px; /// [1]
 
     &__content {
-        padding-bottom: 32px;
+        padding-top: px-to-rem(23px); /// [1]
+        padding-bottom: px-to-rem(32px);
     }
 
     /// [1] subtracting the border width
@@ -25,7 +25,7 @@ $site-footer__background: $ds_colour__grey--light !default;
         font-size: $small-size--fixed;
         line-height: line-height-on-grid($small-size--fixed);
         list-style-type: none;
-        margin: 0 0 23px; /// [1]
+        margin: px-to-rem(-8px) 0 px-to-rem(23px);
     }
 
     &__copyright {
@@ -37,9 +37,12 @@ $site-footer__background: $ds_colour__grey--light !default;
             @include ds_fancy-underscore();
 
             img {
-                height: auto;
                 width: 100%;
             }
+        }
+
+        @include ds_media-query(medium) {
+            @include ds_last-child-no-margin;
         }
     }
 
@@ -50,7 +53,6 @@ $site-footer__background: $ds_colour__grey--light !default;
 
     &__org-logo {
         display: block;
-        height: auto;
         width: 100%;
     }
 
@@ -64,23 +66,18 @@ $site-footer__background: $ds_colour__grey--light !default;
     .ds_site-footer__copyright-logo {
         color: currentColor !important;
     }
-}
 
-.ds_reversed .ds_site-footer__content {
-    color: $ds_colour__white;
-}
-
-.ds_reversed .ds_footer__site-items {
-    border-color: rgba(255, 255, 255, 0.2);
+    @include checkAndFixDescendantLinkColour($ds_colour__link, $ds_colour__background--tertiary, 'site footer');
 }
 
 .ds_site-items {
-    &__item {
+    &__item,
+    &__item:last-child {
         display: inline-block;
-        margin-bottom: 16px;
+        margin-bottom: px-to-rem(16px);
 
         &:not(:last-child) {
-            margin-right: 20px;
+            margin-right: px-to-rem(24px);
         }
     }
 }
@@ -89,7 +86,6 @@ $site-footer__background: $ds_colour__grey--light !default;
 
 
     .ds_site-footer {
-        line-height: 24px;
 
         &__copyright {
             padding-left: 48px;

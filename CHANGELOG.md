@@ -1,11 +1,291 @@
 # Change log
 
-All notable changes to the Digital Scotland Design System Pattern Library will be documented in this file.
+All notable changes to the Scottish Government Design System will be documented in this file.
 
 Changes are grouped under the labels: `Added`, `Changed`, `Deprecated`, 
 `Removed`, `Fixed`, and `Security`.
 
 ---
+## [2.3.2]
+### Changed
+- Tag outline changed to 80% opacity
+### Fixed
+- Right padding on input within an input wrapper
+- Character count doesn't override already existing error states on input fields
+- Remove min-height on search results filter panels
+- Scroll padding added to prevent 'Hide this page' button overlapping focussed elements
+### Security
+- Bump cookie and socket.io
+
+## [2.3.1]
+### Changed
+- Links now underlined in pagination and sequential navigation
+- Minor spacing changes to some headings in search results layout
+- Error summary links use colour contrast functions to generate hover state colours
+### Fixed
+- Invalid hash values are ignored by accordion
+- Tracking script for summary list and summary card action buttons now work with different scopes
+### Security
+- Bump webpack from 5.90.3 to 5.94.0
+- Bump body-parser from 1.20.2 to 1.20.3
+
+## [2.3.0]
+### Added
+- Inset text spacing support for tags
+- New ds_form layout for forms to separate contents from action buttons
+### Changed
+- Date picker has accessibility improvements for screen readers
+- Pagination spacing changes to improve padding for large numbers
+- Inset text padding reduced between left border and content
+- Character count now announces total characters allowed as well as characters remaining
+- Bottom margin removed on last element within a details component
+- Notification panel default now green 'success' state - no modifier is needed
+- Notification banner has js-initialised class applied to the component to determine when to show the close button
+- Task list spacing now uses flex gap and the tag component for statuses
+- No top margin on buttons
+- Spacing between error summary and page header more consistent across different layouts
+- Back to top style changes to meet WCAG 2.2 and not wholly obscure items behind
+- Tracking attributes for summary list and summary card action buttons
+- Tag component design changes and multiple colourways
+- Step navigation now uses an ordered list
+- Nested lists now use the same marker style at all levels
+### Deprecated
+- Status tags for task list now use the standard tag component
+### Fixed
+- Only the accordion containing an id specified in a hash in the URL opens
+- Aspect box image ratio now respected when placed within ds_layout__content or ds_layout__partner layout areas
+- Button text within a button group now vertically centred
+
+## [2.2.0]
+### Added
+- Colour function to check and adjust colours against a given contrast ratio
+- Checks added to link colours for components that have links on non-white backgrounds
+- Compiled CSS, JavaScript and image assets are included in the repo when a release is published
+- Layout added for 'Question page'
+### Changed
+- Link and button hover states use automatically-generated colours for foreground and background
+- Colour change for sequential navigation 'previous' and 'next' text to use main text colour
+- Various improvements made to how autocomplete component gets announced with screen readers
+- Bottom margins standardised for different heading levels
+- Improved spacing, responsive behaviours and support for inline buttons within button groups
+- Increased top margin on button groups and standalone buttons
+- Various spacing changes to form elements
+### Deprecated
+- Button group now used for grouping buttons within a notification banner rather than component specific 'ds_notification__actions' class
+### Removed
+- Unused ds_reversed styles from site search component
+### Fixed
+- Duplicate arrow on details component in Safari now removed
+### Security
+- Bump braces from 3.0.2 to 3.0.3
+- Bump ws, engine.io and socket.io-adapter
+
+## [2.1.0]
+### Added
+- New search facets component, used for search results selected filters
+- New sort options component, used for search results sort
+- New search filters component
+- Plain fallback for select in IE11 with simple downward arrow and no background
+- Static positional option for skip links component
+### Changed
+- Details component behaviour can now be applied to non-details elements
+- Select default width is the width of the longest option rather than 100%
+- Minor changes to search results to accommodate the new search components
+- Accordion spacing changed from px to rem
+- Focus helper mixin changed from 'focus-outline' to 'ds_focus-outline'
+### Deprecated
+- Focus helper mixin 'focus-outline' has been renamed to 'ds_focus-outline' and should no longer be used
+### Removed
+- Wide grey :hover border removed from checkbox and radio
+- Accordion padding rules that are no longer required for animated open/close
+
+## [2.0.0]
+### Added
+- Basic plugin support for the GOV.UK Prototype Kit
+- Data visualisation colour palettes added as Sass variables
+- Tracking attribute for links within metadata component
+- Confirmation message component
+### Changed
+- Inline version of the metadata component automatically has the keys visually hidden
+- Character count now includes a delay for screen readers to read the count text, so it doesn't interfere with the input value being read out
+- Character count now includes aria-describedby for the initial count hint text
+### Removed
+- Breaking change - support dropped for 'ds_reversed' inverted colour scheme on the following components: site branding, site navigation, footer, tag
+- Breaking change - content blocks Sass moved to its own GitHub repo
+### Fixed
+- Accordion heading buttons now have unique IDs, where they previously had the same ID as the heading element
+- Various spacing fixes to site footer
+### Security
+- Bump follow-redirects from 1.15.4 to 1.15.6
+
+## [1.4.0]
+### Added
+- Improved documentation for JavaScript helper functions
+### Fixed
+- Site navigation items no longer accessible by screen readers when menu is closed on mobile sizes
+- Remove underline from site navigation menu toggle that appeared in Safari
+- Remove aria-expanded attribute from autocomplete as not valid on search input type
+### Security
+- Update a number of dependency versions
+### Deprecated
+- Icon size 12 and sizes 52 and upwards
+
+## [1.3.1]
+### Fixed
+- Fix line height of side navigation expand toggle button
+- Adjust chevron size and placement on side navigation to match small accordion component
+- Adjust vertical position of chevron on small accordion
+
+## [1.3.0]
+### Added
+- Tracking attribute  added to "skip link" in task list
+- New layout for search results with filters
+### Changed
+- Support for Mark tag moved from search result component to base so it can be used elsewhere
+- Windows high contrast media query moved to mixin
+- Size and placement of chevron and "open all" button on accordion component
+- Search results layout now uses "list" named grid area for list of results
+### Deprecated
+- Layout .ds_layout--search-results-with-sidebar deprecated and replaced with .ds_layout--search-results--filters
+### Fixed
+- Buttons styled to look like text links have line-height corrected to match
+- Height of "flagpole" on search result "parent link" now always relative to the line-height of the text that appears alongside
+- Site branding title text in site header has line-height corrected
+- Autocomplete unit test spec changed
+- Checkbox checkmark colour corrected when checkbox in focus state
+- Improve support for layouts when grid not supported
+### Security
+- Bump follow-redirects from 1.15.3 to 1.15.4
+
+## [1.2.0]
+### Changed
+- Renamed to Scottish Government Design System
+- Refactor the way disabled dates are handled in the Date picker:
+    - disabled dates are now focusable but not selectable
+    - disabled dates are announced to screen readers as aria-disabled ("dimmed")
+    - date picker can be navigated through beyond allowed date ranges
+- Pagination spacing values and icon size now match Figma design
+- Colour contrast improvements to some borders on Side navigation, Autocomplete and Site search
+### Fixed
+- Date picker issue where clicking "next month" when Jan 31 is selected would navigate to March (January 31 + 1 month = March 2 or 3 (depending on leap year))
+- Side navigation and character count components now check if they have been initialised already before trying to initialise
+- Pagination current page link now changes background colour when receiving focus
+- Variety of components changed to display better in Windows High Contrast
+
+## [1.1.0]
+### Added
+- Additional Sass semantic colour variables
+### Changed
+- Various components Sass amended to reference semantic colour variables instead of direct colour names
+- Pagination component improved for screen readers
+
+## [1.0.0]
+### Changed
+- Breaking change - use sass:math for division
+- Breaking change - use CSS custom properties in preference to inline styles
+### Fixed
+- Back to top component positioning issues when a footer element is not present
+- Various script changes to better support IE11 
+
+## [0.3.0]
+### Added
+- Current version number added to data layer
+### Changed
+- Content blocks spacing changes
+- Minor tidy up of Accordion component Sass for small variant
+### Fixed
+- Typo correction to Accordion component Sass
+### Security
+- Bump @babel/traverse from 7.23.0 to 7.23.2 
+
+## [0.2.0]
+### Changed
+- refactored accordion header to have buttons inside heading elements when JS initialises the component
+
+## [0.1.1]
+### Fixed
+- correction to the npm build command described in the readme
+
+## [0.1.0]
+### Changed
+- npm package renamed from @scottish-government/pattern-library to @scottish-government/design-system
+
+## [0.0.381]
+### Changed
+- Top border on site navigation only applied at larger sizes when the site navigation is visible
+
+## [0.0.379]
+### Changed
+- H3 and H4 size in small accordions reduced
+
+## [0.0.378]
+### Added
+- added methods to remove cookies to the storage script
+
+## [0.0.372]
+### Fixed
+- side navigation spacing changes to stay aligned to 8px grid when using collapsing menu on small viewport
+
+## [0.0.371]
+### Added
+- mouse click behaviour added to window.dataLayer (which button was pressed, whether modifier keys were included)
+- "data-section" attribute added to link elements in the tracking script
+
+## [0.0.370] - 2023-09-07
+### Fixed
+- back to top component placement is correct when the viewport height is similar to the total page height
+
+## [0.0.368] - 2023-08-30
+### Added
+- helper mixin for removing top margin on first child of an element 
+- helper mixin for applying link style in Windows high contrast mode
+### Changed
+- buttons that are styled to look like links use link style in Windows high contrast mode
+- various amends to use responsive spacing mixins in place of fixed values
+### Deprecated
+- callout component
+### Fixed
+- various component (summary list, task list, search result, link item, tag, text input, select, tabs, site search) spacing changes to align to 8px grid
+
+## [0.0.367] - 2023-08-29
+### Fixed
+- buttons in the date picker now have type="button" which avoids some incorrect triggering
+
+## [0.0.365] - 2023-08-29
+### Fixed
+- placeholder text colour was defined but never used. it is now assigned to ::placeholder
+- site navigation links in a closed mobile menu can no longer receive focus via keyboard
+
+## [0.0.363] - 2023-08-25
+### Fixed
+- incorrect top margin on "hide this page" at viewports over 768px
+
+## [0.0.362] - 2023-08-23
+### Fixed
+- 'CSS' interface not understood by IE11 and its use in page.js is causing errors in that browser
+
+## [0.0.361] - 2023-08-21
+### Fixed
+- increase specificity of notification banner "actions" selector so it isn't overridden by ds_last-child-no-margin
+
+## [0.0.360] - 2023-08-21
+### Fixed
+- amend styling of "step navigation" title to follow updated designs
+
+## [0.0.359] - 2023-08-11
+### Fixed
+- 'divider' content block colour theme works as expected
+
+## [0.0.358] - 2023-08-11
+### Security
+- address vulnerabilities in package dependencies
+
+## [0.0.357] - 2023-07-27
+### Fixed
+- ensure components fit the 8px grid and that borders are not distorting their sizes (components affected: textarea/text input, tabs, table)
+- add an underscore to the break-word.scss filename
+- notification banner had its ds_last-child-no-margin helper in the wrong location
+
 ## [0.0.356] - 2023-07-13
 ### Changed
 - remove use of pseudorandom number generators to create unique IDs on accordion, details, side navigation and site navigation

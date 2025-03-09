@@ -16,8 +16,20 @@ describe('back to top', () => {
     });
 
     it('should exit init without doing anything if no element supplied', () => {
-        // testObj.backToTopElement = document.querySelector('.ds_back-to-top');
         testObj.backToTopModule = new BackToTop();
+
+        spyOn(testObj.backToTopModule, 'checkDisplay');
+        testObj.backToTopModule.init();
+
+        expect(testObj.backToTopModule.checkDisplay).not.toHaveBeenCalled();
+    });
+
+    it('should exit init without doing anything if no footer element defined', () => {
+        const footer = document.querySelector('.ds_site-footer');
+        footer.parentNode.removeChild(footer);
+
+        testObj.backToTopElement = document.querySelector('.ds_back-to-top');
+        testObj.backToTopModule = new BackToTop(testObj.backToTopElement);
 
         spyOn(testObj.backToTopModule, 'checkDisplay');
         testObj.backToTopModule.init();
@@ -54,7 +66,7 @@ describe('back to top', () => {
         expect(testObj.backToTopElement.classList.contains('visually-hidden')).toBeFalse();
     });
 
-    it('should check positioning on scroll', () => {
+    it('should check positioning on resize', () => {
         testObj.backToTopElement = document.querySelector('.ds_back-to-top');
         testObj.backToTopModule = new BackToTop(testObj.backToTopElement);
 
@@ -63,7 +75,7 @@ describe('back to top', () => {
         spyOn(testObj.backToTopModule, 'checkPosition');
 
         event = document.createEvent('Event');
-        event.initEvent('scroll');
+        event.initEvent('resize');
         window.dispatchEvent(event);
 
         expect(testObj.backToTopModule.checkPosition).toHaveBeenCalled();

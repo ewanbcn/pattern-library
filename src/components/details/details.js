@@ -9,6 +9,12 @@ class Details {
         this.summary = element.querySelector('.ds_details__summary');
         this.content = element.querySelector('.ds_details__text');
 
+        if (this.summary.nodeName === 'SUMMARY') {
+            this.openAttribute = 'open';
+        } else {
+            this.openAttribute = 'data-open';
+        }
+
         this.keycodes = {
             'enter': 13,
             'space': 32
@@ -16,24 +22,20 @@ class Details {
     }
 
     init() {
-        if (typeof (this.details.open === 'boolean')) {
-           return;
-        } else {
+        if (typeof (this.details.open) !== 'boolean') {
             this.polyfillAttributes();
             this.polyfillEvents();
         }
     }
 
     closeDetails() {
-        this.details.removeAttribute('open');
+        this.details.removeAttribute(this.openAttribute);
         this.summary.setAttribute('aria-expanded', 'false');
-        this.content.style.display = 'none';
     }
 
     openDetails() {
-        this.details.setAttribute('open', 'open');
+        this.details.setAttribute(this.openAttribute, 'open');
         this.summary.setAttribute('aria-expanded', 'true');
-        this.content.style.display = '';
     }
 
     polyfillAttributes() {
@@ -41,14 +43,14 @@ class Details {
         this.details.setAttribute('role', 'group');
         this.summary.setAttribute('role', 'button');
         this.summary.setAttribute('aria-controls', this.content.id);
-        this.summary.tabIndex = 0;
+
+        if (this.summary.nodeName === 'SUMMARY') {
+            this.summary.tabIndex = 0;
+        }
 
         // initial state
-        const isOpen = this.details.hasAttribute('open');
+        const isOpen = this.details.hasAttribute(this.openAttribute);
         this.summary.setAttribute('aria-expanded', isOpen.toString());
-        if (!isOpen) {
-            this.content.style.display = 'none';
-        }
     }
 
     polyfillEvents() {
@@ -60,7 +62,7 @@ class Details {
             }
         });
 
-        this.summary.addEventListener('kayup', event => {
+        this.summary.addEventListener('keyup', event => {
             if (event.keyCode === this.keycodes.space) {
                 event.preventDefault();
             }
@@ -68,8 +70,9 @@ class Details {
     }
 
     setState() {
-        if (this.details.hasAttribute('open')) {
+        if (this.details.hasAttribute(this.openAttribute)) {
             this.closeDetails();
+
         } else {
             this.openDetails();
         }

@@ -1,23 +1,29 @@
-.ds_file-download {
-    background-color: $ds_colour__grey--lighter;
-    display: flex;
-    padding: px-to-rem(16px);
+/*------------------------------------*\
+    FILE DOWNLOAD
+\*------------------------------------*/
 
+$file-download-background-colour: $ds_colour__background--secondary !default;
+
+.ds_file-download {
     @include ds_responsive-margin(4, bottom);
     @include ds_responsive-margin(4, top);
+    @include ds_responsive-padding(2);
+    background-color: $file-download-background-colour;
+    display: flex;
+
+    @include checkAndFixDescendantLinkColour($ds_colour__link, $file-download-background-colour, 'file download');
 
     &--highlighted {
+        @include ds_responsive-padding(2, left, $tuning: -4px);
         border-left: 4px solid $ds_colour__brand;
-        padding-left: px-to-rem(12px);
     }
 
     &__thumbnail {
-        margin-right: px-to-rem(16px);
+        @include ds_responsive-margin(2, right);
     }
 
     &__thumbnail-image {
         display: block;
-        max-width: 100%;
         outline: 1px solid $ds_colour__border;
         outline-offset: -1px;
     }

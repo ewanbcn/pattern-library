@@ -2,13 +2,16 @@
     SEARCH RESULTS
 \*------------------------------------*/
 
+$search-results-related-background: $ds_colour__background--secondary;
+
 .ds_search-results {
+    margin-top: 0.5rem;
 
     &__title {
         @include ds_root-size;
-        margin-top: 0 !important;
-        @include ds_responsive-margin(1, bottom, $important: true);
+        @include ds-responsive-margin(1, bottom);
         font-weight: $normal;
+        margin-top: 0 !important;
 
         &-query {
             font-weight: $bold;
@@ -31,12 +34,23 @@
         @include ds_block-margins;
         @include ds_last-child-no-margin;
         @include ds_responsive-padding(2);
-        background: $ds_colour__grey--lighter;
+        background: $search-results-related-background;
 
         &-title {
             @include ds_root-size;
             margin: 0;
             @include ds_responsive-margin(1, bottom);
         }
+
+        @include checkAndFixDescendantLinkColour($ds_colour__link, $ds_colour__background--secondary, 'related search results');
     }
+
+    &__divider {
+        margin-top: -1px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.ds_search-results.js-initialised .js-apply-sort {
+    display: none;
 }

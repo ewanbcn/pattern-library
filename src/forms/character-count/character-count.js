@@ -1,6 +1,8 @@
 /* global document */
-
 'use strict';
+
+import TokenList from '../../base/tools/tokenlist/tokenlist';
+import elementIdModifier from '../../base/tools/id-modifier/id-modifier';
 
 class CharacterCount {
     constructor(field) {
@@ -14,28 +16,56 @@ class CharacterCount {
             return;
         }
 
-        this.setMaxLength();
+        if (!this.field.classList.contains('js-initialised')) {
+            this.setMaxLength();
+            const idModifier = elementIdModifier();
 
-        if (!this.maxLength) {
-            return;
+            if (!this.maxLength) {
+                return;
+            }
+
+            this.emptyMessage = `You can enter up to ${this.maxLength} characters`;
+            this.emptyMessageElement = document.createElement('div');
+            this.emptyMessageElement.classList.add('fully-hidden');
+            this.emptyMessageElement.classList.add('ds_character-count__initial');
+            this.emptyMessageElement.innerText = this.emptyMessage;
+            this.emptyMessageElement.id = `character-count-empty-${idModifier}`;
+
+            // dynamically create the visible message element
+            // we update this "live"
+            this.messageElement = document.createElement('div');
+            this.messageElement.classList.add('ds_input__message');
+            this.messageElement.classList.add('ds_hint-text');
+            this.messageElement.setAttribute('aria-hidden', 'true');
+
+            // dynamically create the screen reader message element
+            // we update this with a delay so screen readers will announce the input value, then the character count
+            this.screenReaderMessageElement = document.createElement('div');
+            this.screenReaderMessageElement.classList.add('visually-hidden');
+            this.screenReaderMessageElement.id = `character-count-remaining-${idModifier}`;
+
+            this.describedByTokenList = new TokenList(this.inputElement.getAttribute('aria-describedby'));
+            this.inputElement.setAttribute('aria-describedby', this.describedByTokenList.add([this.emptyMessageElement.id, this.screenReaderMessageElement.id]));
+
+            if (this.inputElement.value.length < this.maxLength * this.threshold) {
+                this.messageElement.classList.add('fully-hidden');
+            }
+
+            // address GitHub issue #136 https://github.com/scottish-government-design-system/design-system/issues/136
+            this.initialInvalidState = (!!this.inputElement.getAttribute('aria-invalid') && this.inputElement.getAttribute('aria-invalid') !== 'false');
+
+            this.field.appendChild(this.messageElement);
+            this.field.appendChild(this.screenReaderMessageElement);
+            this.field.appendChild(this.emptyMessageElement);
+
+            this.updateCountMessage();
+
+            this.inputElement.oldValue = this.inputElement.value;
+
+            this.inputElement.addEventListener('input', this.checkIfChanged.bind(this));
+
+            this.field.classList.add('js-initialised');
         }
-
-        this.emptyMessage = `You can enter up to ${this.maxLength} characters`;
-
-        // dynamically create the message element
-        this.messageElement = document.createElement('div');
-        this.messageElement.setAttribute('aria-live', 'polite');
-        this.messageElement.classList.add('ds_input__message');
-        this.messageElement.classList.add('ds_hint-text');
-        // this.messageElement.innerText = this.inputElement.length ? : this.emptyMessage;
-        if (this.inputElement.value.length < this.maxLength * this.threshold) {
-            this.messageElement.classList.add('fully-hidden');
-        }
-        this.field.appendChild(this.messageElement);
-
-        this.updateCountMessage();
-
-        this.inputElement.addEventListener('keyup', this.checkIfChanged.bind(this));
     }
 
     setMaxLength() {
@@ -60,6 +90,7 @@ class CharacterCount {
         }
 
         if (this.inputElement.value !== this.inputElement.oldValue) {
+            this.screenReaderMessageElement.setAttribute('aria-live', 'polite');
             this.inputElement.oldValue = this.inputElement.value;
             this.updateCountMessage.bind(this)();
         }
@@ -79,8 +110,12 @@ class CharacterCount {
             this.messageElement.classList.add('ds_input__message--error');
         }
         else {
-            this.inputElement.classList.remove('ds_input--error');
-            this.inputElement.setAttribute('aria-invalid', false);
+            if (!this.initialInvalidState) {
+                this.inputElement.classList.remove('ds_input--error');
+                this.inputElement.setAttribute('aria-invalid', false);
+            }
+
+            this.messageElement.classList.remove('ds_input__message--error');
 
             if (this.inputElement.value.length === 0) {
                 this.messageElement.innerText = this.emptyMessage;
@@ -88,7 +123,6 @@ class CharacterCount {
                 this.messageElement.innerText = `You have ${count} ${noun} remaining`;
             }
 
-            this.messageElement.classList.remove('ds_input__message--error');
         }
 
         if (this.inputElement.value.length < this.maxLength * this.threshold) {
@@ -96,6 +130,19 @@ class CharacterCount {
         } else {
             this.messageElement.classList.remove('fully-hidden');
         }
+
+        clearTimeout(this.messageTimeout);
+        this.messageTimeout = setTimeout(() => {
+            if (this.inputElement.value.length >= this.maxLength * this.threshold) {
+                this.updateScreenReaderMessage();
+            } else {
+                this.screenReaderMessageElement.innerHTML = '&nbsp;';
+            }
+        }, 1000);
+    }
+
+    updateScreenReaderMessage() {
+        this.screenReaderMessageElement.innerText = this.messageElement.innerText;
     }
 }
 

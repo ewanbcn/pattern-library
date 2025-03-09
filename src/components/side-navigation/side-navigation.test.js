@@ -23,6 +23,14 @@ describe('side navigation', () => {
             testObj.sideNavigationModule = new SideNavigation(testObj.sideNavigationElement);
         });
 
+        it('should abandon attemts to call init() after it has been init-ed', () => {
+            testObj.sideNavigationModule.init();
+
+            spyOn(testObj.sideNavigationModule.sideNavigation.classList, 'add');
+            testObj.sideNavigationModule.init();
+            expect(testObj.sideNavigationModule.sideNavigation.classList.add).not.toHaveBeenCalledWith('js-initialised');
+        });
+
         it ('should set an initial aria-expanded value on the control', () => {
             testObj.sideNavigationModule.init();
             const sideNavButton = testObj.sideNavigationElement.querySelector('.js-side-navigation-button');
@@ -42,26 +50,20 @@ describe('side navigation', () => {
         });
 
         it('should toggle display of the side navigation on click of the label', () => {
-            jasmine.clock().install();
-
             testObj.sideNavigationModule.init();
 
             const label = testObj.sideNavigationElement.querySelector('button.ds_side-navigation__expand');
-            const list = testObj.sideNavigationElement.querySelector('.ds_side-navigation__list');
+            spyOn(testObj.sideNavigationModule, 'openSideNav').and.callThrough();;
+            spyOn(testObj.sideNavigationModule, 'closeSideNav').and.callThrough();;
 
             // opening nav
             const event = new Event('click');
             label.dispatchEvent(event);
-            expect(list.style.display).toEqual('block');
+            expect(testObj.sideNavigationModule.openSideNav).toHaveBeenCalled();
 
             // closing nav
             label.dispatchEvent(event);
-            expect(parseInt(list.style.maxHeight, 10)).toEqual(0);
-
-            jasmine.clock().tick(200);
-            expect(testObj.sideNavigationModule.navList.style.display).toEqual('none');
-
-            jasmine.clock().uninstall();
+            expect(testObj.sideNavigationModule.closeSideNav).toHaveBeenCalled();
         });
 
         it('should toggle a shadow on the navigation if the navigation button is sticky', function () {

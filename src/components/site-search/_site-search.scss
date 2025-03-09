@@ -5,7 +5,7 @@
 // modifiable vars
 $site-search__height: 48px !default;
 $site-search__height--medium: 48px !default;
-$site-search__background-colour: $ds_colour__grey--lighter !default;
+$site-search__background-colour: $ds_colour__background--secondary !default;
 $site-search__border-colour: $ds_colour__grey !default;
 
 
@@ -22,7 +22,6 @@ $site-search__border-colour: $ds_colour__grey !default;
         border-color: $site-search__border-colour;
         margin-bottom: 0;
         min-height: $site-search__height;
-        padding-left: 20px;
 
         &:focus {
             border-color: currentColor;
@@ -42,11 +41,5 @@ $site-search__border-colour: $ds_colour__grey !default;
             height: $site-search__height--medium;
             width: $site-search__height--medium;
         }
-    }
-}
-
-.ds_reversed .ds_site-search {
-    .ds_site-search__button {
-        background-color: $ds_colour__brand--secondary;
     }
 }
